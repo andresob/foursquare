@@ -1,0 +1,14 @@
+@import "variables";
+@import "mixins";
+
+.no-search {
+  color: $white;
+}
+
+.result-list {
+  padding: 0;
+  .element {
+    width: 100%;
+    margin: 8px 0;
+  }
+}

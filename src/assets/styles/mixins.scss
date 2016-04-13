@@ -1,0 +1,27 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin card-shadow($color) {
+  -webkit-box-shadow: 2px 2px 2px 0 $color;
+     -moz-box-shadow: 2px 2px 2px 0 $color;
+          box-shadow: 2px 2px 2px 0 $color;
+}
+
+@mixin animation($attr, $time, $effect) {
+  -webkit-transition-property: $attr;
+     -moz-transition-property: $attr;
+       -o-transition-property: $attr;
+          transition-property: $attr;
+  -webkit-transition-duration: $time;
+     -moz-transition-duration: $time;
+       -o-transition-duration: $time;
+          transition-duration: $time;
+  -webkit-transition-timing-function: $effect;
+     -moz-transition-timing-function: $effect;
+       -o-transition-timing-function: $effect;
+          transition-timing-function: $effect;
+}
