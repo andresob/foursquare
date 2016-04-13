@@ -3,12 +3,12 @@
 
   angular
     .module('softruck')
-    .controller('PlacesController', PlacesController);
+    .controller('MapController', MapController);
 
-  PlacesController.$inject = ['searchCategories', 'searchPlaces'];
+  MapController.$inject = ['searchCategories', 'searchPlaces'];
 
   /** @ngInject */
-  function PlacesController(searchCategories, searchPlaces) {
+  function MapController(searchCategories, searchPlaces) {
     var vm = this;
     vm.getCategories = getCategories;
     vm.getPlaces = getPlaces;

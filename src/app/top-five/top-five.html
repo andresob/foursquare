@@ -1,0 +1,49 @@
+<section class="top-search" layout layout-align="center center">
+
+  <form class="box box-white" layout="column" layout-align="space-between end" flex="80" novalidate ng-submit="topFive.getPlaces()">
+
+    <div layout-fill>
+      <md-input-container>
+        <label>I'm looking for...</label>
+        <input type="text" ng-model="topFive.address" autocomplete="off">
+      </md-input-container>
+    </div>
+
+    <md-button class="md-raised md-primary" type="button" ng-click="topFive.getPlaces()">Search</md-button>
+
+  </form>
+
+</section>
+
+
+<section class="result" layout layout-align="center center">
+
+  <div flex="80">
+
+    <div layout layout-align="center center">
+        <md-progress-circular class="md-accent" md-diameter="40" ng-if="topFive.loading"></md-progress-circular>
+    </div>
+
+
+    <ul class="result-list" layout="column" layout-align="start center">
+      <li ng-repeat="venue in topFive.results.venues" layout="column" class="element box box-white">
+        <div layout layout-align="space-between center">
+            <span class="md-body-2">{{venue.name}}</span>
+            <span class="md-body-2">Checking number: {{venue.stats.checkinsCount}}</span>
+        </div>
+        <span class="md-body-1">{{venue.contact.formattedPhone}}</span>
+        <div layout>
+          <span ng-repeat="address in venue.location.formattedAddress">{{address}}</span>
+        </div>
+        <hr>
+        <ul layout="row" layout-align="start center">
+          <li ng-repeat="category in venue.categories">
+            <span class="md-caption">{{category.name}}</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+  </div>
+
+</section>

@@ -5,11 +5,11 @@
     .module('softruck')
     .factory('searchCategories', searchCategories);
 
-  searchCategories.$inject = ['$resource', 'requestParms'];
+  searchCategories.$inject = ['baseUrlApi', '$resource', 'requestParms'];
 
-  function searchCategories($resource, requestParms) {
+  function searchCategories(baseUrlApi, $resource, requestParms) {
 
-    var requestUri = 'https://api.foursquare.com/v2/venues/categories';
+    var requestUri = baseUrlApi + 'categories';
 
     return $resource(requestUri,
         {

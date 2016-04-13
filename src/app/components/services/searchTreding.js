@@ -3,13 +3,13 @@
 
   angular
     .module('softruck')
-    .factory('searchPlaces', searchPlaces);
+    .factory('searchTrendings', searchTrendings);
 
-  searchPlaces.$inject = ['baseUrlApi', '$resource', 'requestParms'];
+  searchTrendings.$inject = ['baseUrlApi', '$resource', 'requestParms'];
 
-  function searchPlaces(baseUrlApi, $resource, requestParms) {
+  function searchTrendings(baseUrlApi, $resource, requestParms) {
 
-    var requestUri = baseUrlApi + 'search';
+    var requestUri = baseUrlApi + 'trending';
 
     return $resource(requestUri,
         {
