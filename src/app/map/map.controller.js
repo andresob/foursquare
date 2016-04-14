@@ -5,10 +5,10 @@
     .module('softruck')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['searchPlaces', 'userLocation', '$scope', '$log'];
+  MapController.$inject = ['searchPlaces', 'userLocation', '$scope'];
 
   /** @ngInject */
-  function MapController(searchPlaces, userLocation, $scope, $log) {
+  function MapController(searchPlaces, userLocation, $scope) {
     var vm = this;
     vm.getPlaces = getPlaces;
 
