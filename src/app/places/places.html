@@ -2,7 +2,7 @@
 
   <form class="box box-white" layout="column" layout-align="space-between end" flex="80" novalidate ng-submit="places.getPlaces()">
 
-    <div layout layout-align="space-between center" layout-fill>
+    <div layout layout-align="space-between center" layout-fill flex>
       <md-input-container flex="65">
         <label>I'm looking for...</label>
         <input type="text" ng-model="places.address" autocomplete="off">
@@ -21,7 +21,7 @@
 
     </div>
 
-    <div class="slider" ng-class="{active: places.slider}" layout="column" layout-align="space-between end" layout-fill>
+    <div class="slider" ng-class="{active: places.slider}" layout="column" layout-align="space-between end" layout-fill flex>
       <span class="md-caption">{{places.range}}</span>
       <md-slider-container layout-fill>
         <md-slider flex="100" ng-model="places.range" min="0" max="100000" aria-label="range" class="md-primary"></md-slider>
