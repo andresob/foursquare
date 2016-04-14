@@ -5,32 +5,27 @@
     .module('softruck')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['searchCategories', 'searchPlaces'];
+  MapController.$inject = ['searchPlaces'];
 
   /** @ngInject */
-  function MapController(searchCategories, searchPlaces) {
+  function MapController(searchPlaces) {
     var vm = this;
-    vm.getCategories = getCategories;
     vm.getPlaces = getPlaces;
 
+
+    vm.center = { lat: 51.505, lng: -0.09, zoom: 8 };
     vm.results = [];
 
 
-    function getCategories() {
-      searchCategories.get().$promise.then(function (data) {
-        vm.categories = data.response.categories;
-      })
-      .catch(function () {
-        alert('Error');
-      })
+    function centerMap() {
+      vm.center = { lat: vm.results.geocode.feature.geometry.center.lat, lng: vm.results.geocode.feature.geometry.center.lng, zoom: 15 };
     }
 
 
     function getPlaces() {
-      vm.loading = true;
-      searchPlaces.get({ near: vm.address, radius: vm.range, categoryId: vm.category}).$promise.then(function (data) {
-        vm.loading = false;
+      searchPlaces.get({ near: vm.address }).$promise.then(function (data) {
         vm.results = data.response;
+        centerMap();
       })
       .catch(function () {
         alert('Error');

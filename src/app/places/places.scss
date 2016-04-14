@@ -7,6 +7,16 @@
 
 .top-search {
   margin-top: -2px;
+  .slider {
+    max-height: 0;
+    min-height: 0;
+    opacity: 0;
+    @include animation(all, 200ms, ease-in-out);
+  }
+  .slider.active {
+    opacity: 1;
+    max-height: 80px;
+  }
 }
 
 .result-list {

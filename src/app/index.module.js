@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('softruck', ['ngResource', 'ui.router', 'ngMaterial']);
+    .module('softruck', ['ngResource', 'ui.router', 'ngMaterial', 'leaflet-directive']);
 
 })();

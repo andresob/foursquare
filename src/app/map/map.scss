@@ -1,2 +1,10 @@
 @import "variables";
 @import "mixins";
+
+.map {
+  z-index: 1;
+  top: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}

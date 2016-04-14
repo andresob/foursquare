@@ -2,15 +2,13 @@
 
   <form class="box box-white" layout="column" layout-align="space-between end" flex="80" novalidate ng-submit="places.getPlaces()">
 
-    <div layout-fill>
-      <md-input-container>
+    <div layout layout-align="space-between center" layout-fill>
+      <md-input-container flex="65">
         <label>I'm looking for...</label>
         <input type="text" ng-model="places.address" autocomplete="off">
       </md-input-container>
-    </div>
 
-    <div layout layout-align="space-between center" layout-fill>
-      <md-input-container flex="45">
+      <md-input-container flex="25">
         <label>Category</label>
         <md-select ng-model="places.category" md-on-open="places.getCategories()">
           <md-option ng-repeat="category in places.categories" ng-value="category.id">
@@ -19,13 +17,17 @@
         </md-select>
       </md-input-container>
 
-      <div layout="column" flex="45">
-        <md-slider-container layout flex="45">
-          <md-slider flex="100" ng-model="places.range" min="0" max="100000" aria-label="range" class="md-primary"></md-slider>
-        </md-slider-container>
-        <span>{{places.range}}</span>
-      </div>
+      <a flex="5" href="" ng-click="places.slider = !places.slider"><i class="material-icons">filter_list</i></a>
+
     </div>
+
+    <div class="slider" ng-class="{active: places.slider}" layout="column" layout-align="space-between end" layout-fill>
+      <span class="md-caption">{{places.range}}</span>
+      <md-slider-container layout-fill>
+        <md-slider flex="100" ng-model="places.range" min="0" max="100000" aria-label="range" class="md-primary"></md-slider>
+      </md-slider-container>
+    </div>
+
 
     <md-button class="md-raised md-primary" type="button" ng-click="places.getPlaces()">Search</md-button>
 
@@ -45,10 +47,10 @@
 
     <ul class="result-list" layout="column" layout-align="start center">
       <li ng-repeat="venue in places.results.venues" layout="column" class="element box box-white">
-        <span class="md-body-2">{{venue.name}}</span>
+        <span class="md-subhead">{{venue.name}}</span>
         <span class="md-body-1">{{venue.contact.formattedPhone}}</span>
         <div layout>
-          <span ng-repeat="address in venue.location.formattedAddress">{{address}}</span>
+          <span class="md-body-1" ng-repeat="address in venue.location.formattedAddress">{{address}}</span>
         </div>
         <hr>
         <ul layout="row" layout-align="start center">

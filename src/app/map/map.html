@@ -1,64 +1,22 @@
 <section class="top-search" layout layout-align="center center">
 
-  <form class="box box-white" layout="column" layout-align="space-between center" flex="80" novalidate ng-submit="places.getPlaces()">
+  <form class="box box-white" layout="column" layout-align="space-between end" flex="80" novalidate ng-submit="map.getPlaces()" style="z-index: 3">
 
     <div layout-fill>
       <md-input-container>
         <label>I'm looking for...</label>
-        <input type="text" ng-model="places.address" autocomplete="off">
+        <input type="text" ng-model="map.address" autocomplete="off">
       </md-input-container>
     </div>
 
-    <div layout layout-align="space-between center" layout-fill>
-      <md-input-container flex="45">
-        <label>Category</label>
-        <md-select ng-model="places.category" md-on-open="places.getCategories()">
-          <md-option ng-repeat="category in places.categories" ng-value="category.id">
-            {{category.name}}
-          </md-option>
-        </md-select>
-      </md-input-container>
-
-      <div layout="column" flex="45">
-        <md-slider-container layout flex="45">
-          <md-slider flex="100" ng-model="places.range" min="0" max="100000" aria-label="range" class="md-primary"></md-slider>
-        </md-slider-container>
-        <span>{{places.range}}</span>
-      </div>
-    </div>
-
-    <button type="button" name="button" ng-click="places.getPlaces()">Search</button>
+    <md-button class="md-raised md-primary" type="button" ng-click="map.getPlaces()">Search</md-button>
 
   </form>
 
 </section>
 
 
-<section class="result" layout layout-align="center center">
+<leaflet lf-center="map.center" class="map"></leaflet>
 
-  <div flex="80">
-
-    <div layout layout-align="center center">
-        <md-progress-circular class="md-accent" md-diameter="40" ng-if="places.loading"></md-progress-circular>
-    </div>
-
-
-    <ul class="result-list" layout="column" layout-align="start center">
-      <li ng-repeat="venue in places.results.venues" layout="column" class="element box box-white">
-        <span class="md-body-2">{{venue.name}}</span>
-        <span class="md-body-1">{{venue.contact.formattedPhone}}</span>
-        <div layout>
-          <span ng-repeat="address in venue.location.formattedAddress">{{address}}</span>
-        </div>
-        <hr>
-        <ul layout="row" layout-align="start center">
-          <li ng-repeat="category in venue.categories">
-            <span class="md-caption">{{category.name}}</span>
-          </li>
-        </ul>
-      </li>
-    </ul>
-
-  </div>
-
-</section>
+<script src="app/components/lib/heatmap.js"></script>
+<script src="app/components/lib/leaflet-heatmap.js"></script>

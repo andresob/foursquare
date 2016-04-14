@@ -13,6 +13,7 @@
     vm.getCategories = getCategories;
     vm.getPlaces = getPlaces;
 
+
     vm.results = [];
 
 
