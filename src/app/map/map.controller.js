@@ -5,10 +5,10 @@
     .module('softruck')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['searchPlaces', 'userLocation'];
+  MapController.$inject = ['searchPlaces', 'userLocation', '$scope', '$log'];
 
   /** @ngInject */
-  function MapController(searchPlaces, userLocation) {
+  function MapController(searchPlaces, userLocation, $scope, $log) {
     var vm = this;
     vm.getPlaces = getPlaces;
 
@@ -36,14 +36,19 @@
 
 
     function getPlaces() {
-      searchPlaces.get({ near: vm.address, radius: 100000, limiti: 100 }).$promise.then(function (data) {
-        vm.results = data.response;
-        _centerMap();
-        _formatData();
-      })
-      .catch(function () {
-        alert('Error');
-      });
+      if (angular.isUndefined(vm.address) || vm.address === '') {
+        return;
+      }
+      else {
+        searchPlaces.get({ near: vm.address, radius: 100000, limiti: 100 }).$promise.then(function (data) {
+          vm.results = data.response;
+          _centerMap();
+          _formatData();
+        })
+        .catch(function () {
+          alert('Error');
+        });
+      }
     }
 
 
@@ -65,6 +70,20 @@
         vm.center = { lat: parseInt(location.split(',')[0]), lng: parseInt(location.split(',')[1]), zoom: 15 };
       })
     }
+
+
+    $scope.$on('leafletDirectiveMap.dragend', function(event, gh) {
+      var lat = gh.model.lfCenter.lat.toString();
+      var lng = gh.model.lfCenter.lng.toString();
+      var latlng = lat + ',' + lng;
+      searchPlaces.get({ ll: latlng, radius: 100000, limiti: 100 }).$promise.then(function (data) {
+        vm.results = data.response;
+        _formatData();
+      })
+      .catch(function () {
+        alert('Error');
+      });
+    });
 
   }
 })();
