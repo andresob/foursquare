@@ -10,7 +10,10 @@
     "animate.css": "~3.4.0",
     "angular": "~1.4.2",
     "angular-leaflet-directive": "angular-leaflet#^0.10.0",
-    "ngmap": "^1.17.3"
+    "ngmap": "^1.17.3",
+    "webgl-heatmap-leaflet": "*",
+    "leaflet.heat": "Leaflet.heat#*",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"

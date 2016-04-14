@@ -5,31 +5,65 @@
     .module('softruck')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['searchPlaces'];
+  MapController.$inject = ['searchPlaces', 'userLocation'];
 
   /** @ngInject */
-  function MapController(searchPlaces) {
+  function MapController(searchPlaces, userLocation) {
     var vm = this;
     vm.getPlaces = getPlaces;
 
-
-    vm.center = { lat: 51.505, lng: -0.09, zoom: 8 };
-    vm.results = [];
-
-
-    function centerMap() {
-      vm.center = { lat: vm.results.geocode.feature.geometry.center.lat, lng: vm.results.geocode.feature.geometry.center.lng, zoom: 15 };
-    }
+    _getCenter();
+    var data = [];
+    vm.center =  { lat: 37.774546, lng: -122.433523, zoom: 15 };
+    vm.layers = {
+        baselayers: {
+            mapbox_light: {
+                name: 'OpenStreetMap',
+                url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                type: 'xyz'
+            }
+        }
+    };
+    vm.layers.overlays = {
+        heat: {
+            name: 'Heat Map',
+            type: 'heat',
+            data: data,
+            layerOptions: { radius: 20, blur: 8 },
+            visible: true
+        }
+    };
 
 
     function getPlaces() {
-      searchPlaces.get({ near: vm.address }).$promise.then(function (data) {
+      searchPlaces.get({ near: vm.address, radius: 100000, limiti: 100 }).$promise.then(function (data) {
         vm.results = data.response;
-        centerMap();
+        _centerMap();
+        _formatData();
       })
       .catch(function () {
         alert('Error');
       });
+    }
+
+
+    function _centerMap() {
+      vm.center = { lat: vm.results.geocode.feature.geometry.center.lat, lng: vm.results.geocode.feature.geometry.center.lng, zoom: 15 };
+    }
+
+
+    function _formatData() {
+      angular.forEach(vm.results.venues, function(value) {
+          data.push([value.location.lat, value.location.lng]);
+      });
+    }
+
+
+    function _getCenter() {
+      userLocation.get().then(function (response) {
+        var location = response.data.loc;
+        vm.center = { lat: parseInt(location.split(',')[0]), lng: parseInt(location.split(',')[1]), zoom: 15 };
+      })
     }
 
   }
